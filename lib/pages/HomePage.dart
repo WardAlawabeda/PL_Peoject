@@ -6,6 +6,7 @@ import 'package:pl_project/pages/OrdersPage.dart';
 import 'package:pl_project/pages/ProfilePage.dart';
 import 'package:pl_project/pages/SearchPage.dart';
 import 'package:pl_project/pages/ShopsPage.dart';
+import 'package:pl_project/pages/food_stores_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -107,7 +108,7 @@ class HomePageContent extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(children: [
-          const SizedBox(height: 25.0),       //Categories COntainer
+          const SizedBox(height: 25.0), //Categories COntainer
           Container(
             decoration: BoxDecoration(
               border: Border.all(),
@@ -137,9 +138,15 @@ class HomePageContent extends StatelessWidget {
                     children: [
                       Expanded(
                           child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FoodStoresList()),
+                          );
+                        },
                         icon: const Icon(
-                          Icons.home,
+                          Icons.food_bank_rounded,
                           size: 30,
                         ),
                       )),
@@ -181,12 +188,14 @@ class HomePageContent extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 50.0),      //Stores Header
+          const SizedBox(height: 50.0), //Stores Header
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children:[
+            children: [
               CircleAvatar(child: Icon(Icons.storefront_sharp)),
-              SizedBox(width: 8.0,),
+              SizedBox(
+                width: 8.0,
+              ),
               Text(
                 'Stores around you...',
                 style: TextStyle(
@@ -195,10 +204,10 @@ class HomePageContent extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   //color: Colors.blueGrey
                 ),
-                ),
+              ),
             ],
           ),
-          const SizedBox(),                 //Stores Grid View
+          const SizedBox(), //Stores Grid View
           Flexible(
               child: GridView.count(
             padding: const EdgeInsets.all(4),
