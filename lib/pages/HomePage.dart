@@ -5,6 +5,7 @@ import 'package:pl_project/models/btn.dart' as btn;
 import 'package:pl_project/pages/OrdersPage.dart';
 import 'package:pl_project/pages/ProfilePage.dart';
 import 'package:pl_project/pages/SearchPage.dart';
+import 'package:pl_project/pages/food_stores_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -138,9 +139,15 @@ class HomePageContent extends StatelessWidget {
                       children: [
                         Expanded(
                             child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const FoodStoresList()),
+                            );
+                          },
                           icon: const Icon(
-                            Icons.home,
+                            Icons.fastfood,
                             size: 30,
                           ),
                         )),
