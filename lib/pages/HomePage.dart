@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:pl_project/models/btn.dart' as btn;
+import 'package:pl_project/widgets/CustomButtonNavigationBar.dart' as btn;
 import 'package:pl_project/pages/OrdersPage.dart';
 import 'package:pl_project/pages/ProfilePage.dart';
 import 'package:pl_project/pages/SearchPage.dart';
