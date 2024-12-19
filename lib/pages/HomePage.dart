@@ -107,7 +107,7 @@ class HomePageContent extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(children: [
-          const SizedBox(height: 25.0),       //Categories COntainer
+          const SizedBox(height: 25.0), //Categories Container
           Container(
             decoration: BoxDecoration(
               border: Border.all(),
@@ -181,12 +181,14 @@ class HomePageContent extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 50.0),      //Stores Header
+          const SizedBox(height: 50.0), //Stores Header
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children:[
+            children: [
               CircleAvatar(child: Icon(Icons.storefront_sharp)),
-              SizedBox(width: 8.0,),
+              SizedBox(
+                width: 8.0,
+              ),
               Text(
                 'Stores around you...',
                 style: TextStyle(
@@ -195,10 +197,10 @@ class HomePageContent extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   //color: Colors.blueGrey
                 ),
-                ),
+              ),
             ],
           ),
-          const SizedBox(),                 //Stores Grid View
+          const SizedBox(), //Stores Grid View
           Flexible(
               child: GridView.count(
             padding: const EdgeInsets.all(4),
