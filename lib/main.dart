@@ -17,7 +17,7 @@ class DeliveryApp extends StatelessWidget {
         primaryColor: Colors.amber,
         useMaterial3: true,
       ),
-      home:  HomePage(),
+      home:  const HomePage(),
     );
   }
 }

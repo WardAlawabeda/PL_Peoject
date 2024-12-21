@@ -6,7 +6,10 @@ import 'package:pl_project/pages/OrdersPage.dart';
 import 'package:pl_project/pages/ProfilePage.dart';
 import 'package:pl_project/pages/SearchPage.dart';
 import 'package:pl_project/pages/ShopsPage.dart';
+import 'package:pl_project/pages/food_stores_list.dart';
 import 'package:pl_project/widgets/CategoriesWidget.dart' as cw;
+
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -107,15 +110,95 @@ class HomePageContent extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(children: [
-          const SizedBox(height: 25.0), //Categories
-          const cw.CategoriesWidget(),
+          const SizedBox(height: 25.0), //Categories COntainer
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 40.0,
+                  color: Colors.amber[300],
+                  child: const Center(
+                    child: Text(
+                      'Categories',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 70.0,
+                  color: Colors.amber[900],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                          child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FoodStoresList()),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.food_bank_rounded,
+                          size: 30,
+                        ),
+                      )),
+                      Expanded(
+                          child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.home,
+                          size: 30,
+                        ),
+                      )),
+                      Expanded(
+                          child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.home,
+                          size: 30,
+                        ),
+                      )),
+                      Expanded(
+                          child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.home,
+                          size: 30,
+                        ),
+                      )),
+                      Expanded(
+                          child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.home,
+                          size: 30,
+                        ),
+                      )),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 50.0), //Stores Header
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+            children:  [
               CircleAvatar(child: Icon(Icons.storefront_sharp)),
               SizedBox(
+                
                 width: 8.0,
+              
               ),
               Text(
                 'Stores around you...',
