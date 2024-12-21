@@ -18,6 +18,10 @@ class SearchPage extends StatelessWidget {
                 suffix: Icon(Icons.search),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+          ),
+          //the search result goes here
+          SingleChildScrollView(
+            
           )
         ],
       ),

@@ -32,9 +32,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
       ],
       currentIndex: currentIndex,
-      selectedItemColor: Colors.blue,
+      selectedItemColor: Colors.amber,
       unselectedItemColor: Colors.grey,
       onTap: onTap,
+      showSelectedLabels: true,
+      showUnselectedLabels: false,
+      selectedLabelStyle:const TextStyle(
+        fontStyle: FontStyle.italic
+      ),
+      selectedFontSize: 18.0,
+      
     );
   }
 }
