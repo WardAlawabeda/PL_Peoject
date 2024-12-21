@@ -1,0 +1,3 @@
+[submodule "delivery-app-backend"]
+	path = delivery-app-backend
+	url = https://github.com/kar865/delivery-app-backend.git

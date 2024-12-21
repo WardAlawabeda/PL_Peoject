@@ -1,12 +1,14 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:pl_project/models/btn.dart' as btn;
+import 'package:pl_project/widgets/CustomButtonNavigationBar.dart' as btn;
 import 'package:pl_project/pages/OrdersPage.dart';
 import 'package:pl_project/pages/ProfilePage.dart';
 import 'package:pl_project/pages/SearchPage.dart';
 import 'package:pl_project/pages/ShopsPage.dart';
 import 'package:pl_project/pages/food_stores_list.dart';
+import 'package:pl_project/widgets/CategoriesWidget.dart' as cw;
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,8 +23,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     const HomePageContent(),
     const SearchPage(),
-    const ProfilePage(),
     const OrdersPage(),
+    const ProfilePage(),
   ];
   void _onTaped(int index) {
     setState(() {
@@ -191,10 +193,12 @@ class HomePageContent extends StatelessWidget {
           const SizedBox(height: 50.0), //Stores Header
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+            children:  [
               CircleAvatar(child: Icon(Icons.storefront_sharp)),
               SizedBox(
+                
                 width: 8.0,
+              
               ),
               Text(
                 'Stores around you...',
