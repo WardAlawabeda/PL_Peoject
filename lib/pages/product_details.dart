@@ -24,7 +24,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               Container(
                 decoration: BoxDecoration(
                   color: Colors.amber[600],
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(0),
                     topRight: Radius.circular(0),
                     bottomLeft: Radius.circular(400),
@@ -37,8 +37,8 @@ class _ProductDetailsState extends State<ProductDetails> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 50),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20, top: 50),
                     child: Text(
                       'Hamburger',
                       style: TextStyle(
@@ -60,8 +60,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 5),
+              const Padding(
+                padding: EdgeInsets.only(left: 20, top: 5),
                 child: Text(
                   'Burger',
                   style: TextStyle(
@@ -80,7 +80,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       color: Colors.amber[600],
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Details',
                         style: TextStyle(
@@ -93,8 +93,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 40),
+              const Padding(
+                padding: EdgeInsets.only(left: 20, top: 40),
                 child: Text(
                   'A hamburger sandwich with onions, tomatoes, beef, cheese lettuce and mayo',
                   style: TextStyle(
@@ -112,9 +112,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                       color: Colors.amber[600],
                       iconSize: 40,
                       onPressed: () {},
-                      icon: Icon(Icons.remove_circle),
+                      icon: const Icon(Icons.remove_circle),
                     ),
-                    Text(
+                    const Text(
                       '0',
                       style: TextStyle(
                         fontSize: 20,
@@ -125,7 +125,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       color: Colors.amber[600],
                       iconSize: 40,
                       onPressed: () {},
-                      icon: Icon(Icons.add_circle),
+                      icon: const Icon(Icons.add_circle),
                     ),
                     Container(
                       height: 50,
@@ -139,7 +139,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           onTap: () {
                             print('tapped');
                           },
-                          child: Text(
+                          child: const Text(
                             'Add to cart',
                             style: TextStyle(
                               color: Colors.white,

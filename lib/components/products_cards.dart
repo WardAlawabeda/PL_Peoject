@@ -24,12 +24,12 @@ class _ProductsCardsState extends State<ProductsCards> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ProductDetails()));
+            context, MaterialPageRoute(builder: (context) => const ProductDetails()));
       },
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Container(
+          SizedBox(
             height: 160,
             width: 220,
             child: Card(
@@ -41,20 +41,20 @@ class _ProductsCardsState extends State<ProductsCards> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'burger', //product name
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 1,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           '2500s.p',
                           style: TextStyle(
                             color: Colors.black,
@@ -62,11 +62,11 @@ class _ProductsCardsState extends State<ProductsCards> {
                           ),
                         ),
                         GestureDetector(
+                            onTap: changeIcon,
                             child: Icon(
                               currentIcon,
                               color: Colors.red,
-                            ),
-                            onTap: changeIcon),
+                            )),
                       ],
                     ),
                   ],
@@ -83,14 +83,14 @@ class _ProductsCardsState extends State<ProductsCards> {
             ),
           ),
           Positioned(
-            child: GestureDetector(
-                child: Icon(
-                  Icons.add_circle,
-                  color: const Color.fromARGB(255, 27, 110, 255),
-                ),
-                onTap: () {}),
             left: -5,
             top: -5,
+            child: GestureDetector(
+                child: const Icon(
+                  Icons.add_circle,
+                  color: Color.fromARGB(255, 27, 110, 255),
+                ),
+                onTap: () {}),
           ),
         ],
       ),

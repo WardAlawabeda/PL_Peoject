@@ -3,61 +3,102 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  Future<dynamic> get({required String url, @required String? token}) async {
-    Map<String, String> headers = {};
+  static const String baseURL = " http://127.0.0.1/api/";
+  static Map<String, String> headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  };
 
-    if (token != null) {
-      headers.addAll({'Authorization': 'Bearer $token'});
-    }
-    http.Response response = await http.get(Uri.parse(url), headers: headers);
+  static Future<Map<String, dynamic>> get(
+      {required String endPoint, String? token}) async {
+    try {
+      final Uri url = Uri.parse('$baseURL$endPoint');
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception(
-          'there is a problem with status code ${response.statusCode}');
+      if (token != null) {
+        headers.addAll({'Authorization': 'Bearer $token'});
+      }
+
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(
+            'Failed to get data. Status code ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error during GET request : $e');
     }
   }
 
-  Future<dynamic> pots(
-      {required String url,
-      @required dynamic body,
+  static Future<Map<String, dynamic>> pots(
+      {required String endPoint,
+      required Map<String, dynamic> data,
       @required String? token}) async {
-    Map<String, String> headers = {};
+    try {
+      final Uri url = Uri.parse('$baseURL$endPoint');
 
-    if (token != null) {
-      headers.addAll({'Authorization': 'Bearer $token'});
-    }
-    http.Response response = await http.post(Uri.parse(url), body: body);
+      if (token != null) {
+        headers.addAll({'Authorization': 'Bearer $token'});
+      }
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> data = jsonDecode(response.body);
-      return data;
-    } else {
-      throw Exception(
-          'there is a problem with status code ${response.statusCode} with body ${jsonDecode(response.body)}');
+      final response =
+          await http.post(url, headers: headers, body: jsonEncode(data));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(
+            'Failed to create data. status code ${response.statusCode} with body ${jsonDecode(response.body)}');
+      }
+    } catch (e) {
+      throw Exception('Error during the POST request : $e');
     }
   }
 
-  Future<dynamic> put(
-      {required url, @required dynamic body, @required String? token}) async {
-    Map<String, String> headers = {};
+  static Future<Map<String, dynamic>> put(
+      {required endPoint,
+      required Map<String, dynamic> data,
+      @required String? token}) async {
+    try {
+      final Uri url = Uri.parse('$baseURL$endPoint');
 
-    headers.addAll({'Content-Type': 'application/x-www-form-urlencoded'});
+      if (token != null) {
+        headers.addAll({'authorization': 'Bearer $token'});
+      }
 
-    if (token != null) {
-      headers.addAll({'authorization': 'Bearer $token'});
+      final response =
+          await http.post(url, headers: headers, body: jsonEncode(data));
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(
+            'Failed to update data. status code ${response.statusCode} with body ${jsonDecode(response.body)}');
+      }
+    } catch (e) {
+      throw Exception('Error during PUT request $e');
     }
+  }
 
-    http.Response response =
-        await http.post(Uri.parse(url), body: body, headers: headers);
+  static Future<Map<String, dynamic>> delete(
+      {required String endPoint, @required token}) async {
+    try {
+      final Uri url = Uri.parse('$baseURL$endPoint');
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> data = jsonDecode(response.body);
-      return data;
-    } else {
-      throw Exception(
-          'there is a problem with status code ${response.statusCode} with body ${jsonDecode(response.body)}');
+      if (token != null) {
+        headers.addAll({'authorization': 'Bearer $token'});
+      }
+      final response = await http.delete(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(
+            'Failed to delete data. status code ${response.statusCode} with body ${jsonDecode(response.body)}');
+      }
+    } catch (e) {
+      throw Exception('Error during DELETE request $e');
     }
   }
 }

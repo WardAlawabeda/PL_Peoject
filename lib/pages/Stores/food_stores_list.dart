@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pl_project/components/stores_cards.dart';
 import 'package:pl_project/pages/food_store_products.dart';
 
-//عرض المتاجر
 class FoodStoresList extends StatelessWidget {
   const FoodStoresList({super.key});
 
@@ -11,7 +10,7 @@ class FoodStoresList extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.amber[600],
-          title: Text(
+          title: const Text(
             'FoodStores',
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -26,11 +25,11 @@ class FoodStoresList extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          FoodStoreProducts(storeName: 'Store')));
+                          const FoodStoreProducts(storeName: 'Store')));
             },
             child: GridView.builder(
                 clipBehavior: Clip.none,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
                   childAspectRatio: 2,
                   mainAxisSpacing: 10,

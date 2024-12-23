@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// TODO : make the search page
+// TODO : make the search service
+
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
@@ -13,16 +16,14 @@ class SearchPage extends StatelessWidget {
           ),
           TextField(
             decoration: InputDecoration(
-              label: Text('Search'),
-              hintText: 'enter a product name',
+                label: Text('Search'),
+                hintText: 'enter a product name',
                 suffix: Icon(Icons.search),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)))),
           ),
           //the search result goes here
-          SingleChildScrollView(
-            
-          )
+          SingleChildScrollView()
         ],
       ),
     );

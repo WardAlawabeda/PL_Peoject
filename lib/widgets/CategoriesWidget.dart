@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pl_project/pages/Stores/food_stores_list.dart';
+import 'package:pl_project/pages/Stores/electronics_store_list.dart';
+import 'package:pl_project/pages/Stores/fashion_store_list.dart';
+import "package:pl_project/pages/Stores/books_store_list.dart";
+import 'package:pl_project/pages/Stores/home_applies_store_list.dart';
+import 'package:pl_project/pages/Stores/furniture_store_list.dart';
+import 'package:pl_project/pages/Stores/sports_store_list.dart';
+import 'package:pl_project/pages/Stores/toys_store_list.dart';
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({super.key});
@@ -17,15 +25,25 @@ Map<int, dynamic> icons = {
   6: Icons.sports_basketball_rounded,
   7: Icons.toys_outlined,
 };
-Map<int,String> catName = {
-  0:'Food',
-  1:'Electronics',
-  2:'Fashion',
-  3:'Books',
-  4:'Home Applies',
-  5:'Furniture',
-  6:'Sports',
-  7:'Toys',
+Map<int, String> catName = {
+  0: 'Food',
+  1: 'Electronics',
+  2: 'Fashion',
+  3: 'Books',
+  4: 'Home Applies',
+  5: 'Furniture',
+  6: 'Sports',
+  7: 'Toys',
+};
+Map<int,dynamic> routs = {
+  0 : const FoodStoresList(),
+  1 : const ElectronicsStoreList(),
+  2 : const FashionStoreList(),
+  3 : const BooksStoreList(),
+  4 : const HomeAppliesStoreList(),
+  5 : const FurnitureStoreList(),
+  6 : const SportsStoreList(),
+  7 : const ToysStoreList(),
 };
 class _CategoriesWidgetState extends State<CategoriesWidget> {
   PageController pageController = PageController(viewportFraction: 0.27);
@@ -71,12 +89,17 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
             borderRadius: BorderRadius.circular(30), color: Colors.amber),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => routs[position]),
+              );
+            },
             icon: Icon(icons[position]),
           ),
-           Text(
+          Text(
             '${catName[position]}',
-            style: const TextStyle(fontSize: 11.0,fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 11.0, fontWeight: FontWeight.w500),
           ),
           const SizedBox(
             height: 4.0,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pl_project/components/products_cards.dart';
 
-//عرض منتجات المتاجر
+// TODO : make the service to get the products of a store
+
 class FoodStoreProducts extends StatelessWidget {
   final String storeName;
   const FoodStoreProducts({super.key, required this.storeName});
