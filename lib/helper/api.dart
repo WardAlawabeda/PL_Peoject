@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static const String baseURL = " http://127.0.0.1/api/";
+  static const String baseURL = "http://192.168.43.23/api";
   static Map<String, String> headers = {
     "Content-Type": "application/json",
     "Accept": "application/json"
@@ -12,12 +12,10 @@ class Api {
   static Future<Map<String, dynamic>> get(
       {required String endPoint, String? token}) async {
     try {
-      final Uri url = Uri.parse('$baseURL$endPoint');
-
       if (token != null) {
         headers.addAll({'Authorization': 'Bearer $token'});
       }
-
+      Uri url = Uri.parse('$baseURL$endPoint');
       final response = await http.get(url, headers: headers);
 
       if (response.statusCode == 200) {

@@ -3,9 +3,9 @@ import 'package:pl_project/components/products_cards.dart';
 
 // TODO : make the service to get the products of a store
 
-class FoodStoreProducts extends StatelessWidget {
+class StoreProducts extends StatelessWidget {
   final String storeName;
-  const FoodStoreProducts({super.key, required this.storeName});
+  const StoreProducts({super.key, required this.storeName});
 
   @override
   Widget build(BuildContext context) {

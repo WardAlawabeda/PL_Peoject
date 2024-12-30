@@ -23,8 +23,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: 'Search',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
-          label: 'Cart',
+          icon: Icon(Icons.delivery_dining),
+          label: 'Orders',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),

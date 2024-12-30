@@ -1,5 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:pl_project/pages/food_store_products.dart';
+import 'package:pl_project/pages/StoreProducts.dart';
 // بطاقة المتجر
 
 class StoresCards extends StatelessWidget {
@@ -7,6 +9,7 @@ class StoresCards extends StatelessWidget {
   final String StoreImage;
   final VoidCallback onTap;
   const StoresCards({
+    super.key,
     required this.storeName,
     required this.StoreImage,
     required this.onTap,
@@ -19,12 +22,12 @@ class StoresCards extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => FoodStoreProducts(storeName: 'Store')));
+                builder: (context) => const StoreProducts(storeName: 'Store')));
       },
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Container(
+          const SizedBox(
             width: double.infinity,
             height: 150,
             child: Card(
@@ -33,7 +36,7 @@ class StoresCards extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 18, left: 18),
+                    padding: EdgeInsets.only(top: 18, left: 18),
                     child: Text(
                       'McDonalds',
                       style: TextStyle(
@@ -47,8 +50,7 @@ class StoresCards extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(top: 7, left: 18, right: 10),
+                        padding: EdgeInsets.only(top: 7, left: 18, right: 10),
                         child: Text(
                           '20min',
                           style: TextStyle(
@@ -62,7 +64,7 @@ class StoresCards extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 7, left: 18, right: 10),
+                    padding: EdgeInsets.only(top: 7, left: 18, right: 10),
                     child: Text(
                       'delivery fee:5000s.p',
                       style: TextStyle(
@@ -77,12 +79,12 @@ class StoresCards extends StatelessWidget {
             ),
           ),
           Positioned(
+              right: 10,
+              top: -50,
               child: Image.asset(
                 'assets/images/mcdonalds.png',
                 height: 150,
-              ),
-              right: 10,
-              top: -50),
+              )),
         ],
       ),
     );

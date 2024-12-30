@@ -1,6 +1,9 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:pl_project/models/ProductModel.dart';
+import 'package:pl_project/pages/CartPage.dart';
+import 'package:pl_project/pages/FavoritesPage.dart';
+import 'package:pl_project/pages/NOtificationPage.dart';
 import 'package:pl_project/services/GetSomeStoresForHome.dart';
 import 'package:pl_project/widgets/CustomButtonNavigationBar.dart' as btn;
 import 'package:pl_project/pages/OrdersPage.dart';
@@ -70,7 +73,10 @@ class _HomePageState extends State<HomePage> {
             children: [
               // TODO : make the notification page
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const NotificationPage()));
+                },
                 icon: const Icon(
                   Icons.notifications,
                   color: Colors.yellowAccent,
@@ -79,7 +85,10 @@ class _HomePageState extends State<HomePage> {
               ),
               // TODO : make the favorite page
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                   Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const FavoritesPage()));
+                },
                 icon: const Icon(
                   Icons.favorite,
                   color: Colors.red,
@@ -88,7 +97,10 @@ class _HomePageState extends State<HomePage> {
               ),
               // TODO : make the cart page
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                   Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const CartPage()));
+                },
                 icon: const Icon(Icons.shopping_cart),
                 iconSize: 18.0,
               ),
@@ -127,7 +139,7 @@ class _HomePageContentState extends State<HomePageContent> {
         padding: const EdgeInsets.all(10.0),
         child: Column(children: [
           const SizedBox(height: 25.0),
-          const cw.CategoriesWidget(),
+           cw.CategoriesWidget(),
           const SizedBox(height: 50.0),
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -147,43 +159,46 @@ class _HomePageContentState extends State<HomePageContent> {
             ],
           ),
           const SizedBox(),
-          FutureBuilder<List<ProductModel>>(
-              future: products,
-              builder: (context, snapShot) {
-                if (snapShot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (snapShot.hasError) {
-                  return Center(
-                    child: Text('Error : ${snapShot.error}'),
-                  );
-                } else if (!snapShot.hasData || snapShot.data!.isEmpty) {
-                  return const Center(
-                    child: Text('No products found'),
-                  );
-                } else {
-                  final products = snapShot.data!;
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            childAspectRatio: 0.8,
-                            crossAxisSpacing: 8.0,
-                            mainAxisSpacing: 8.0),
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      final product = products[index];
-                      return ProductInHome(product: product);
-                    },
-                  );
-                }
-              })
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FutureBuilder<List<ProductModel>>(
+                  future: products,
+                  builder: (context, snapShot) {
+                    if (snapShot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapShot.hasError) {
+                      return Center(
+                        child: Text('Error : ${snapShot.error}'),
+                      );
+                    } else if (!snapShot.hasData || snapShot.data!.isEmpty) {
+                      return const Center(
+                        child: Text('No products found'),
+                      );
+                    } else {
+                      final products = snapShot.data!;
+                      return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                childAspectRatio: 0.8,
+                                crossAxisSpacing: 8.0,
+                                mainAxisSpacing: 8.0),
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          final product = products[index];
+                          return ProductInHome(product: product);
+                        },
+                      );
+                    }
+                  }),
+            ],
+          )
         ]));
   }
 }
-
-// TODO : make the service that get the product detailes
 
 class ProductInHome extends StatelessWidget {
   const ProductInHome({
