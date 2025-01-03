@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// TODO : make the notification page
+
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
 

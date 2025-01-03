@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// TODO : make the favorite page
+
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
 

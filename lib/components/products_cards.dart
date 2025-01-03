@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:pl_project/models/ProductModel.dart';
 import 'package:pl_project/pages/product_details.dart';
 
 class ProductsCards extends StatefulWidget {
-  const ProductsCards({super.key});
+  final ProductModel product;
+
+  const ProductsCards({super.key, required this.product});
   @override
   State<ProductsCards> createState() => _ProductsCardsState();
 }
 
 class _ProductsCardsState extends State<ProductsCards> {
   IconData currentIcon = Icons.favorite_border; //initial icon.
+
   void changeIcon() {
     setState(() {
-      if (currentIcon == Icons.favorite_border) {
-        currentIcon = Icons.favorite;
-      } else {
-        currentIcon = Icons.favorite_border;
-      }
+      currentIcon = currentIcon == Icons.favorite_border
+      ? Icons.favorite
+      : Icons.favorite_border;
     });
   }
 
@@ -24,7 +26,7 @@ class _ProductsCardsState extends State<ProductsCards> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const ProductDetails()));
+            context, MaterialPageRoute(builder: (context) => ProductDetails(product: widget.product,)));
       },
       child: Stack(
         clipBehavior: Clip.none,
@@ -41,9 +43,9 @@ class _ProductsCardsState extends State<ProductsCards> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'burger', //product name
-                      style: TextStyle(
+                    Text(
+                      widget.product.name, //product name
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                       ),
@@ -54,9 +56,9 @@ class _ProductsCardsState extends State<ProductsCards> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          '2500s.p',
-                          style: TextStyle(
+                        Text(
+                          '${widget.product.price} \$',
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                           ),
@@ -74,14 +76,18 @@ class _ProductsCardsState extends State<ProductsCards> {
               ),
             ),
           ),
+          //Product Image
           Positioned(
             right: 5,
             bottom: 65,
-            child: Image.asset(
-              'assets/images/burger.png',
-              height: 90,
+            child: Image.network(
+              widget.product.image_url,
+              fit: BoxFit.cover,
+              height: 100,
+              width: double.infinity,
             ),
           ),
+          //Add Button
           Positioned(
             left: -5,
             top: -5,

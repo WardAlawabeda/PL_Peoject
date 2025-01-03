@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pl_project/components/stores_cards.dart';
-import 'package:pl_project/pages/StoreProducts.dart';
+import 'package:pl_project/pages/StoreProductsPage.dart';
 import 'package:pl_project/models/StoreModel.dart';
 import 'package:pl_project/services/GetStoresService.dart';
 
@@ -9,6 +9,7 @@ class StoresPage extends StatelessWidget {
   final String? categoryName; // Name of the category (e.g., Food Stores, Electronics)
 
   const StoresPage({super.key, required this.categoryId, required this.categoryName});
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,21 +45,21 @@ class StoresPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => StoreProducts(
-                              storeName: store.name,
+                            builder: (context) => StoreProductsPage(
+                              storeName: store.name, storeId: store.id,
                             ),
                           ),
                         );
                       },
                       child: StoresCards(
                         storeName: store.name,
-                        StoreImage: store.imageUrl,
+                        // StoreImage: store.imageUrl,
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => StoreProducts(
-                                storeName: store.name,
+                              builder: (context) => StoreProductsPage(
+                                storeName: store.name, storeId: store.id,
                               ),
                             ),
                           );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// TODO : make the cart page
+
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
 

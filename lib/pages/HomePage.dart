@@ -4,7 +4,7 @@ import 'package:pl_project/models/ProductModel.dart';
 import 'package:pl_project/pages/CartPage.dart';
 import 'package:pl_project/pages/FavoritesPage.dart';
 import 'package:pl_project/pages/NOtificationPage.dart';
-import 'package:pl_project/services/GetSomeStoresForHome.dart';
+import 'package:pl_project/services/SomeProductsForHome.dart';
 import 'package:pl_project/widgets/CustomButtonNavigationBar.dart' as btn;
 import 'package:pl_project/pages/OrdersPage.dart';
 import 'package:pl_project/pages/ProfilePage.dart';
@@ -71,11 +71,12 @@ class _HomePageState extends State<HomePage> {
         actions: [
           Row(
             children: [
-              // TODO : make the notification page
               IconButton(
                 onPressed: () {
-                  Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const NotificationPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NotificationPage()));
                 },
                 icon: const Icon(
                   Icons.notifications,
@@ -83,11 +84,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 iconSize: 18.0,
               ),
-              // TODO : make the favorite page
               IconButton(
                 onPressed: () {
-                   Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const FavoritesPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FavoritesPage()));
                 },
                 icon: const Icon(
                   Icons.favorite,
@@ -95,11 +97,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 iconSize: 18.0,
               ),
-              // TODO : make the cart page
               IconButton(
                 onPressed: () {
-                   Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const CartPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CartPage()));
                 },
                 icon: const Icon(Icons.shopping_cart),
                 iconSize: 18.0,
@@ -130,7 +133,7 @@ class _HomePageContentState extends State<HomePageContent> {
   @override
   void initState() {
     super.initState();
-    products = GetSomeStoresForHome().getSomeProducts();
+    products = SomeProductsForHome().getSomeProducts();
   }
 
   @override
@@ -139,7 +142,7 @@ class _HomePageContentState extends State<HomePageContent> {
         padding: const EdgeInsets.all(10.0),
         child: Column(children: [
           const SizedBox(height: 25.0),
-           cw.CategoriesWidget(),
+          const cw.CategoriesWidget(),
           const SizedBox(height: 50.0),
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -159,42 +162,39 @@ class _HomePageContentState extends State<HomePageContent> {
             ],
           ),
           const SizedBox(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FutureBuilder<List<ProductModel>>(
-                  future: products,
-                  builder: (context, snapShot) {
-                    if (snapShot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (snapShot.hasError) {
-                      return Center(
-                        child: Text('Error : ${snapShot.error}'),
-                      );
-                    } else if (!snapShot.hasData || snapShot.data!.isEmpty) {
-                      return const Center(
-                        child: Text('No products found'),
-                      );
-                    } else {
-                      final products = snapShot.data!;
-                      return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                childAspectRatio: 0.8,
-                                crossAxisSpacing: 8.0,
-                                mainAxisSpacing: 8.0),
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          final product = products[index];
-                          return ProductInHome(product: product);
-                        },
-                      );
-                    }
-                  }),
-            ],
+          Expanded(
+            child: FutureBuilder<List<ProductModel>>(
+                future: products,
+                builder: (context, snapShot) {
+                  if (snapShot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapShot.hasError) {
+                    return Center(
+                      child: Text('Error : ${snapShot.error}'),
+                    );
+                  } else if (!snapShot.hasData || snapShot.data!.isEmpty) {
+                    return const Center(
+                      child: Text('No products found'),
+                    );
+                  } else {
+                    final products = snapShot.data!;
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.8,
+                              crossAxisSpacing: 8.0,
+                              mainAxisSpacing: 8.0),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        final product = products[index];
+                        return ProductInHome(product: product);
+                      },
+                    );
+                  }
+                }),
           )
         ]));
   }
@@ -211,21 +211,31 @@ class ProductInHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ProductDetails()));},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductDetails(product: product)));
+      },
       child: Card(
         elevation: 4,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(product.image),
+            Image.network(
+              product.image_url,
+              height: 100,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error);
+              },
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 product.name,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -240,8 +250,8 @@ class ProductInHome extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               child: Text(
                 product.description,
                 maxLines: 2,

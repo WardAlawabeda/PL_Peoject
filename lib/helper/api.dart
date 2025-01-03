@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static const String baseURL = "http://192.168.43.23/api";
+  static const String baseURL = "http://192.168.43.23:8000/api";
   static Map<String, String> headers = {
     "Content-Type": "application/json",
     "Accept": "application/json"
@@ -99,4 +99,29 @@ class Api {
       throw Exception('Error during DELETE request $e');
     }
   }
+
+  static Future<List<dynamic>> getList({
+    required String endPoint,
+    String? token,
+  }) async {
+    try {
+      if (token != null) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+      Uri url = Uri.parse('$baseURL$endPoint');
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        // Directly decode the list response
+        return jsonDecode(response.body) as List<dynamic>;
+      } else {
+        throw Exception(
+          'Failed to get data. Status code: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error during GET request: $e');
+    }
+  }
+
 }

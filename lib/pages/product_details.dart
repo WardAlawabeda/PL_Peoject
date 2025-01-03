@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:pl_project/models/ProductModel.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({super.key});
+  final ProductModel product;
+
+  const ProductDetails({super.key, required this.product,});
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  void selectText(String text) {}
+  int quantity = 0;
+
+  void incrementQuantity() {
+    setState(() {
+      quantity++;
+    });
+  }
+
+  void decrementQuantity() {
+    if (quantity > 0) {
+  setState(() {
+    quantity--;
+  });
+}
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +38,11 @@ class _ProductDetailsState extends State<ProductDetails> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //top rounded container
               Container(
                 decoration: BoxDecoration(
                   color: Colors.amber[600],
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(0),
-                    topRight: Radius.circular(0),
                     bottomLeft: Radius.circular(400),
                     bottomRight: Radius.circular(400),
                   ),
@@ -34,14 +50,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                 width: double.infinity,
                 height: 400,
               ),
+              //product name and price
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20, top: 50),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 50),
                     child: Text(
-                      'Hamburger',
-                      style: TextStyle(
+                      widget.product.name,
+                      style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.w800,
                       ),
@@ -50,7 +67,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Padding(
                     padding: const EdgeInsets.only(right: 20, top: 50),
                     child: Text(
-                      '30,000 s.p',
+                      '${widget.product.price} \$',
                       style: TextStyle(
                         color: Colors.amber[600],
                         fontSize: 25,
@@ -60,16 +77,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20, top: 5),
-                child: Text(
-                  'Burger',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
+              const SizedBox(height: 30.0,),
+              //details button
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -93,16 +102,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20, top: 40),
+              //product description
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 40),
                 child: Text(
-                  'A hamburger sandwich with onions, tomatoes, beef, cheese lettuce and mayo',
-                  style: TextStyle(
+                  widget.product.description,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                   ),
                 ),
               ),
+              //quantity selector and add to cart button
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
@@ -111,12 +122,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                     IconButton(
                       color: Colors.amber[600],
                       iconSize: 40,
-                      onPressed: () {},
+                      onPressed: decrementQuantity,
                       icon: const Icon(Icons.remove_circle),
                     ),
-                    const Text(
-                      '0',
-                      style: TextStyle(
+                    //quantity display
+                     Text(
+                      '$quantity',
+                      style:const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w900,
                       ),
@@ -124,9 +136,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                     IconButton(
                       color: Colors.amber[600],
                       iconSize: 40,
-                      onPressed: () {},
+                      onPressed: incrementQuantity,
                       icon: const Icon(Icons.add_circle),
                     ),
+                    //add to cart button
                     Container(
                       height: 50,
                       width: 150,
@@ -137,7 +150,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: Center(
                         child: GestureDetector(
                           onTap: () {
-                            print('tapped');
+                            
                           },
                           child: const Text(
                             'Add to cart',
@@ -154,11 +167,12 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ],
           ),
+          //product image
           Positioned(
             top: 150,
             right: 35,
-            child: Image.asset(
-              'assets/images/burger.png',
+            child: Image.network(
+              widget.product.image_url, //widget.product.image_url ?? 'assets/images/placeholder.png'
               height: 250,
             ),
           ),
