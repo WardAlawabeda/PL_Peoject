@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pl_project/models/ProductModel.dart';
 import 'package:pl_project/services/SearchService.dart';
 
 class SearchPage extends StatefulWidget {

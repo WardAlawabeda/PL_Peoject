@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pl_project/components/stores_cards.dart';
+import 'package:pl_project/widgets/stores_cards.dart';
 import 'package:pl_project/pages/StoreProductsPage.dart';
 import 'package:pl_project/models/StoreModel.dart';
 import 'package:pl_project/services/GetStoresService.dart';
