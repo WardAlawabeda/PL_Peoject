@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pl_project/pages/HomePage.dart';
+import 'package:pl_project/pages/LogInPage.dart';
 
 void main() {
   runApp(const DeliveryApp());
@@ -17,7 +17,7 @@ class DeliveryApp extends StatelessWidget {
         primaryColor: Colors.amber,
         useMaterial3: true,
       ),
-      home:  const HomePage(),
+      home:  const LogInPage(),
     );
   }
 }
