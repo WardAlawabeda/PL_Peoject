@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO : make the cart page
-
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
@@ -13,14 +11,30 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
+        appBar: AppBar(
           backgroundColor: Colors.amber[600],
           title: const Text(
-            "Cart",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+            'My Cart',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 50),
+          child: GestureDetector(
+            onTap: () {},
+            child: GridView.builder(
+              clipBehavior: Clip.none,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 2,
+                mainAxisSpacing: 100,
+              ),
+              itemCount: 8,
+              itemBuilder: (context, index) {
+                // return ProductsCards(product: null,);
+              },
             ),
           ),
-    ));
+        ));
   }
 }

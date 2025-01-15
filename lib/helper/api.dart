@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static const String baseURL = "http://192.168.43.205:8000/api";
+  static const String baseURL = "http://192.168.43.23:8000/api";
   static Map<String, String> headers = {
     "Content-Type": "application/json",
     "Accept": "application/json"
@@ -29,7 +29,7 @@ class Api {
     }
   }
 
-  static Future<Map<String, dynamic>> pots(
+  static Future<Map<String, dynamic>> post(
       {required String endPoint,
       required Map<String, dynamic> data,
       @required String? token}) async {
@@ -80,14 +80,14 @@ class Api {
   }
 
   static Future<Map<String, dynamic>> delete(
-      {required String endPoint, @required token}) async {
+      {required String endPoint, @required token, @required data}) async {
     try {
       final Uri url = Uri.parse('$baseURL$endPoint');
 
       if (token != null) {
         headers.addAll({'authorization': 'Bearer $token'});
       }
-      final response = await http.delete(url, headers: headers);
+      final response = await http.delete(url, headers: headers,body: data);
 
       if (response.statusCode == 200) {
         return jsonDecode(response.body);

@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> {
               Icon(
                 Icons.location_on,
               ),
-              // TODO : make the service to get user loction
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
