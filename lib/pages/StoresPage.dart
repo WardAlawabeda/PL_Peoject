@@ -5,8 +5,8 @@ import 'package:pl_project/models/StoreModel.dart';
 import 'package:pl_project/services/GetStoresService.dart';
 
 class StoresPage extends StatelessWidget {
-  final int categoryId; // ID of the category
-  final String? categoryName; // Name of the category (e.g., Food Stores, Electronics)
+  final int categoryId;
+  final String? categoryName;
 
   const StoresPage({super.key, required this.categoryId, required this.categoryName});
 
@@ -17,7 +17,7 @@ class StoresPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.amber[600],
           title: Text(
-            categoryName!, // Use the categoryName dynamically for the title
+            categoryName!,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -53,7 +53,7 @@ class StoresPage extends StatelessWidget {
                       },
                       child: StoresCards(
                         storeName: store.name,
-                        // StoreImage: store.imageUrl,
+                        storeImage: store.storeImage,
                         onTap: () {
                           Navigator.push(
                             context,

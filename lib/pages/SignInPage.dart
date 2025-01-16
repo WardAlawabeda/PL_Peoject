@@ -15,12 +15,12 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final List<String> avatars = [
-    "assets/avatar1.png",
-    "assets/avatar2.png",
-    "assets/avatar3.png",
-    "assets/avatar4.png",
-    "assets/avatar5.png",
-    "assets/avatar6.png",
+    "assets/avatars/avatar1.jpg",
+    "assets/avatars/avatar2.jpg",
+    "assets/avatars/avatar3.jpg",
+    "assets/avatars/avatar4.jpg",
+    "assets/avatars/avatar5.jpg",
+    "assets/avatars/avatar6.jpg",
   ];
 
   String? selectedAvatar;

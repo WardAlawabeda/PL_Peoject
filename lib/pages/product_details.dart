@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pl_project/helper/TokenStorage.dart';
+import 'package:pl_project/helper/api.dart';
 import 'package:pl_project/models/ProductModel.dart';
+import 'package:pl_project/services/CartService.dart';
 
 class ProductDetails extends StatefulWidget {
   final ProductModel product;
 
-  const ProductDetails({super.key, required this.product,});
+  const ProductDetails({super.key, required this.product});
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -12,6 +15,7 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   int quantity = 0;
+  String? _token;
 
   void incrementQuantity() {
     setState(() {
@@ -19,13 +23,23 @@ class _ProductDetailsState extends State<ProductDetails> {
     });
   }
 
+  Future<void> loadToken() async {
+    _token = await TokenStorage.getToken();
+  }
+
+  void addToCart() {
+    CartService CS = CartService(api: Api(), token: _token);
+    CS.addProductToCart(widget.product.id, quantity);
+  }
+
   void decrementQuantity() {
     if (quantity > 0) {
-  setState(() {
-    quantity--;
-  });
-}
+      setState(() {
+        quantity--;
+      });
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +91,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30.0,),
+              const SizedBox(
+                height: 30.0,
+              ),
               //details button
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -126,9 +142,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                       icon: const Icon(Icons.remove_circle),
                     ),
                     //quantity display
-                     Text(
+                    Text(
                       '$quantity',
-                      style:const TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w900,
                       ),
@@ -150,7 +166,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: Center(
                         child: GestureDetector(
                           onTap: () {
-                            
+                            addToCart();
                           },
                           child: const Text(
                             'Add to cart',
@@ -172,7 +188,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             top: 150,
             right: 35,
             child: Image.network(
-              widget.product.image_url, //widget.product.image_url ?? 'assets/images/placeholder.png'
+              widget.product.image_url,
               height: 250,
             ),
           ),

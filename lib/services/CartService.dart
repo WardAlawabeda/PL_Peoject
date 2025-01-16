@@ -4,7 +4,7 @@ import 'package:pl_project/helper/api.dart';
 
 class CartService {
   final Api api;
-  final String? token; // The user's token for authentication
+  final String? token;
 
   CartService({required this.api, required this.token});
 
@@ -19,7 +19,7 @@ class CartService {
         endPoint: '/cart',
         token: token,
       );
-      return response; // Return the list of cart items
+      return response;
     } catch (e) {
       throw Exception('Error fetching cart products: $e');
     }
@@ -40,7 +40,7 @@ class CartService {
         },
         token: token,
       );
-      return response; // Return the added item details
+      return response;
     } catch (e) {
       throw Exception('Error adding product to cart: $e');
     }
@@ -57,7 +57,7 @@ class CartService {
         endPoint: '/cart/$productId',
        token: token,
       );
-      return response['message']; // Return the success message
+      return response['message'];
     } catch (e) {
       throw Exception('Error removing product from cart: $e');
     }
@@ -77,7 +77,7 @@ class CartService {
           'quantity': quantity,
         },
       );
-      return response; // Return the updated product details
+      return response;
     } catch (e) {
       throw Exception('Error updating product quantity: $e');
     }

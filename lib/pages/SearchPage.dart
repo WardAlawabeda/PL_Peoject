@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pl_project/pages/StoreProductsPage.dart';
+import 'package:pl_project/pages/product_details.dart';
 import 'package:pl_project/services/SearchService.dart';
 
 class SearchPage extends StatefulWidget {
@@ -54,7 +56,9 @@ class _SearchPageState extends State<SearchPage> {
                   label: const Text('Search'),
                   hintText: 'enter a product or a store name',
                   suffix: IconButton(
-                      onPressed: ()async {await performSearch(searchController.text);} ,
+                      onPressed: () async {
+                        await performSearch(searchController.text);
+                      },
                       icon: const Icon(Icons.search)),
                   border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)))),
@@ -103,7 +107,11 @@ class _SearchPageState extends State<SearchPage> {
               title: Text(product['name']),
               subtitle: Text('${product['price']} \$'),
               onTap: () {
-                // Navigate to product details
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetails(product: product)));
               },
             );
           }),
@@ -122,7 +130,15 @@ class _SearchPageState extends State<SearchPage> {
               title: Text(store['name']),
               subtitle: const Text('Store details here'),
               onTap: () {
-                // Navigate to store details
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StoreProductsPage(
+                      storeName: store.name,
+                      storeId: store.id,
+                    ),
+                  ),
+                );
               },
             );
           }),

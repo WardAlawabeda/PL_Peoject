@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names, avoid_types_as_parameter_names
 
 import 'package:flutter/material.dart';
-import 'package:pl_project/widgets/CustomButton.dart'; // Assuming you have this custom widget
-import 'package:pl_project/pages/HomePage.dart'; // Import your HomePage
-import 'package:pl_project/helper/api.dart'; // Import your custom Api class
-import 'package:pl_project/services/UserService.dart'; // Import UserService class
+import 'package:pl_project/widgets/CustomButton.dart';
+import 'package:pl_project/pages/HomePage.dart';
+import 'package:pl_project/helper/api.dart';
+import 'package:pl_project/services/UserService.dart';
 
 class OtpPage extends StatefulWidget {
   final String email;
@@ -20,7 +20,6 @@ class _OtpPageState extends State<OtpPage> {
   List<TextEditingController> otpControllers =
       List.generate(6, (_) => TextEditingController());
 
-  // UserService instance for OTP verification
   final UserService userService = UserService(api: Api());
 
   @override
@@ -98,31 +97,24 @@ class _OtpPageState extends State<OtpPage> {
               buttonname: "Validate",
               ontap: () async {
                 if (t1k.currentState!.validate()) {
-                  // Collect OTP from the text controllers
                   String otp =
                       otpControllers.map((controller) => controller.text).join();
 
                   try {
-                    // Verify the OTP with the backend
                     var response = await userService.verifyOTP(
                       email: widget.email,
                       otp: otp,
                     );
-
-                    // Check if OTP is verified and handle the response
                     if (response['token'] != null) {
-                      // Navigate to the HomePage if OTP is valid
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => const HomePage()),
                       );
                     } else {
-                      // Show error message if OTP is incorrect
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Invalid OTP")),
                       );
                     }
                   } catch (e) {
-                    // Handle OTP verification error
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("OTP verification failed")),
                     );

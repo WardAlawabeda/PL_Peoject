@@ -1,16 +1,20 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:pl_project/helper/api.dart';
 import 'package:pl_project/models/ProductModel.dart';
 import 'package:pl_project/pages/CartPage.dart';
 import 'package:pl_project/pages/FavoritesPage.dart';
-import 'package:pl_project/pages/NOtificationPage.dart';
+import 'package:pl_project/services/ProfileService.dart';
 import 'package:pl_project/services/SomeProductsForHome.dart';
+import 'package:pl_project/services/UserService.dart';
 import 'package:pl_project/widgets/CustomButtonNavigationBar.dart' as btn;
 import 'package:pl_project/pages/OrdersPage.dart';
 import 'package:pl_project/pages/ProfilePage.dart';
 import 'package:pl_project/pages/SearchPage.dart';
 import 'package:pl_project/widgets/CategoriesWidget.dart' as cw;
 import 'package:pl_project/pages/product_details.dart';
+import 'package:pl_project/services/CartService.dart';
+import 'package:pl_project/services/OrdersService.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,11 +25,28 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  late String? _token;
+
+@override
+void initState() {
+  super.initState();
+  _loadToken();
+}
+
+// Load the token from SharedPreferences
+  Future<void> _loadToken() async {
+    final userService = UserService(api: Api());
+    await userService.loadToken(); // Load the token into UserService
+    setState(() {
+      _token = userService.token; // Set token state to be used in the widget
+    });
+  }
+
   final List<Widget> _pages = [
     const HomePageContent(),
     const SearchPage(),
-    const OrdersPage(),
-    const ProfilePage(),
+    OrdersPage(orderService: OrderService(api: Api(),token: _HomePageState()._token) ,),
+    ProfilePage(profileService: ProfileService(api: Api(), token: _HomePageState()._token),),
   ];
 
   void _onTaped(int index) {
@@ -58,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                    'Damascus',
+                    'Damascus'
                   )
                 ],
               )
@@ -70,19 +91,6 @@ class _HomePageState extends State<HomePage> {
         actions: [
           Row(
             children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const NotificationPage()));
-                },
-                icon: const Icon(
-                  Icons.notifications,
-                  color: Colors.yellowAccent,
-                ),
-                iconSize: 18.0,
-              ),
               IconButton(
                 onPressed: () {
                   Navigator.push(
@@ -101,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const CartPage()));
+                          builder: (context) => CartPage(cartService: CartService(api: Api(),token: _token),)));
                 },
                 icon: const Icon(Icons.shopping_cart),
                 iconSize: 18.0,

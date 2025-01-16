@@ -17,11 +17,12 @@ class axisListBuilder extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           Text(
             listName, // name of the list
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
+          const SizedBox(height: 8.0),
           SizedBox(
             height: 150,
             child: ListView.builder(
@@ -30,7 +31,8 @@ class axisListBuilder extends StatelessWidget {
               itemBuilder: (context, index) {
                 final product = products[index];
                 return FavoriteProductCard(
-                  imagePath: product['image_url'],
+                  imagePath: product['image_url'] ?? '',
+                  productId: product['id'],
                 );
               },
             ),

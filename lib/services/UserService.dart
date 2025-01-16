@@ -1,14 +1,32 @@
-// ignore_for_file: missing_required_param
-
 import 'package:pl_project/helper/api.dart'; // Import your custom Api class
+import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
 
 class UserService {
   final Api api;
-  String? _token; // Store the user's token
+  String? _token; // Store the user's token locally
 
   UserService({required this.api});
+
   // Getter for the token
   String? get token => _token;
+
+  // Save the token to SharedPreferences
+  Future<void> _saveToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_token', token); // Save token with the key 'user_token'
+  }
+
+  // Retrieve the token from SharedPreferences
+  Future<void> _loadToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    _token = prefs.getString('user_token'); // Get the token using the key 'user_token'
+  }
+
+  // Remove the token from SharedPreferences
+  Future<void> _removeToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('user_token'); // Remove the token from storage
+  }
 
   // Sign up user
   Future<Map<String, dynamic>> signUp({
@@ -30,7 +48,12 @@ class UserService {
         'password': password,
         'password_confirmation': passwordConfirmation,
       });
-      _token = response['token']; // Save the token
+
+      if (response['token'] != null) {
+        _token = response['token']; // Save the token
+        await _saveToken(_token!); // Persist the token
+      }
+
       return response;
     } catch (e) {
       throw Exception('Sign Up Error: $e');
@@ -44,7 +67,12 @@ class UserService {
         'identifier': identifier,
         'password': password,
       });
-      _token = response['token']; // Save the token
+
+      if (response['token'] != null) {
+        _token = response['token']; // Save the token
+        await _saveToken(_token!); // Persist the token
+      }
+
       return response;
     } catch (e) {
       throw Exception('Log In Error: $e');
@@ -64,24 +92,31 @@ class UserService {
       );
 
       _token = null; // Clear the token
+      await _removeToken(); // Remove the token from storage
     } catch (e) {
       throw Exception('Log Out Error: $e');
     }
   }
 
+  // Verify OTP
   Future<Map<String, dynamic>> verifyOTP({
     required String email,
     required String otp,
   }) async {
     try {
-      final response = await Api
-          .post(endPoint: '/verify-otp', data: {"email": email, "otp": otp});
-          if (response['token'] != null) {
-            _token = response["token"];
-          }
-          return response;
+      final response = await Api.post(endPoint: '/verify-otp', data: {"email": email, "otp": otp});
+      if (response['token'] != null) {
+        _token = response["token"];
+        await _saveToken(_token!); // Persist the token
+      }
+      return response;
     } catch (e) {
       throw Exception('OTP verification error: $e ');
     }
+  }
+
+  // Load the token when the app starts
+  Future<void> loadToken() async {
+    await _loadToken(); // Load the token from SharedPreferences
   }
 }

@@ -45,20 +45,16 @@ class _LoginState extends State<LogInPage> {
   void handleLogin() async {
     if (userNameKey.currentState!.validate() && passwordKey.currentState!.validate()) {
       try {
-        // Prepare login data
         String username = userName.text.trim();
         String pwd = password.text.trim();
 
-        // Call the login function from UserService
         final response = await userService.logIn(username, pwd);
 
         if (response['status'] == 'success') {
-          // Navigate to OTP page on successful login
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => OtpPage(email:userName.text)),
           );
         } else {
-          // Handle error from API
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -74,7 +70,6 @@ class _LoginState extends State<LogInPage> {
           );
         }
       } catch (e) {
-        // Handle exception
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -204,7 +199,7 @@ class _LoginState extends State<LogInPage> {
             ),
             CustomButton(
               buttonname: "Login Now",
-              ontap: handleLogin, // Call the handleLogin method
+              ontap: handleLogin,
             ),
             const SizedBox(
               height: 250,

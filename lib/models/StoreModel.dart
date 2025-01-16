@@ -4,6 +4,7 @@ class StoreModel {
   final int categoryId;
   final String createdAt;
   final String updatedAt;
+  final String storeImage;
 
   StoreModel({
     required this.id,
@@ -11,6 +12,7 @@ class StoreModel {
     required this.categoryId,
     required this.createdAt,
     required this.updatedAt,
+    required this.storeImage
   });
 
   // Factory constructor to parse JSON
@@ -21,6 +23,7 @@ class StoreModel {
       categoryId: json['category_id'],
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
+      storeImage: json['image_url'],
     );
   }
 }
