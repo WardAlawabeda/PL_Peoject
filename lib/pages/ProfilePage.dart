@@ -13,7 +13,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late Future<Map<String, dynamic>> _userInfoFuture;
-  bool _showAvatars = false;
+  final bool _showAvatars = false;
 
   String? _selectedAvatar; // Store the currently selected avatar
   String? _confirmedAvatar; // Store the confirmed avatar
